@@ -1,20 +1,20 @@
-//버블소트
-//1517번
+//������Ʈ 
+//1517�� 
 //https://www.acmicpc.net/problem/1517
-//문제 풀이 방법
-//bubble sort -> 아님
 //
+//bubble sort -> ��Ǯ���� 
+
 #include <stdio.h>
 #include <algorithm>
 //using namespace std;
 
 struct sortData{
-    int index;//배열의 인덱스 값 저장
-    int data;//배열의 값 저장
+    int index;
+    int data;
 };
 
 struct sortData a[500000];
-struct sortData b[500000];//정렬된 a
+struct sortData b[500000];
 
 int bubbleSortCount(int size){
     int temp;
