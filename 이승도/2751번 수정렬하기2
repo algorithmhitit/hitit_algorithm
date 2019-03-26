@@ -1,0 +1,51 @@
+//수정렬하기 2
+//2751번
+//퀵소트사용 , pivot값은 가운데값으로설정
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+void swap (int &a, int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+int partition(int a[],int start, int end)
+{
+	int pivotIndex = (start + end) / 2;
+    int pivotValue = a[pivotIndex];
+    swap(a[pivotIndex], a[end]);
+    int storeIndex = start;
+    for (int i = start; i<end; i++) {
+        if (a[i]<pivotValue) {
+            swap(a[i], a[storeIndex]);
+            storeIndex++;
+        }
+    }
+    swap(a[storeIndex], a[end]);
+    return storeIndex;
+}
+void quicksort(int a[],int start, int end)
+{
+	if(start<end)
+	{
+		int pivot = partition(a,start,end);
+		quicksort(a,start,pivot-1);
+		quicksort(a,pivot+1,end);
+	}
+}
+int main(void)
+{
+	int length;
+	scanf("%d",&length);
+	int array[length];
+	
+	for(int i=0;i<length;i++)
+		scanf("%d",&array[i]);
+		
+	quicksort(array,0,length-1);
+	
+	for(int i=0;i<length;i++)
+		printf("%d\n",array[i]);
+	return 0;
+}
