@@ -1,0 +1,26 @@
+//2750 수정렬하기1
+//버블소트사용
+#include <iostream>
+
+using namespace std;
+int main(void)
+{
+	int num,i,j,temp;
+	cin >> num;
+	int a[num]={0};    //초기화 
+	for(i=0;i<num;i++) cin>>a[i]; //입력 
+	for(i=0;i<num;i++)
+	{
+		for(j=0;j<num-i-1;j++)
+		{
+			if(a[j]>a[j+1])
+			{				//위치바꾸기 
+				temp=a[j];
+				a[j]=a[j+1];
+				a[j+1]=temp;
+			}
+		}
+	}
+	for(i=0;i<num;i++)  //출력 
+		cout<<a[i]<<endl;
+}
