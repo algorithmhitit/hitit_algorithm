@@ -1,0 +1,107 @@
+//수정렬하기3
+//10989번
+//2차원배열이고,머지소트로정렬하였음
+//중복값을받으면 배열두번째값의 카운트를올렸으나
+//결국 런타임에러가뜸..하지만 실행해보면 맞는답 , 아마도메모리초과..?
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+int a[10001][2]={0};
+int b[10001][2]={0};
+int arraylength=0;
+
+void merge(int left,int mid,int right)
+{	
+	int i=left;
+	int j=mid+1;
+	int k=0; 	//b[]에 저장할INDEX  
+	while(i<=mid && j<=right)
+	{
+		if(a[i][0]<a[j][0]) //오른쪽분할정렬값이 더클때 
+		{
+			b[k][0]=a[i][0]; //b라는 배열에 작은왼쪽값을
+			b[k][1]=a[i][1]; // 순차적으로 값을저장 
+			k++;
+			i++;		
+		}
+		else
+		{
+			b[k][0]=a[j][0]; //왼쪽클때 작은오른쪽값저장
+			b[k][1]=a[j][1]; 
+			k++;
+			j++;
+		}
+	}
+	//오른쪽다저장했고 ,왼쪽살아있을때(왼쪽배열남은값이더클때) 
+	while(i<=mid)  
+	{
+		b[k][0]=a[i][0];
+		b[k][1]=a[i][1];
+		k++;
+		i++;
+	}
+	//왼쪽다저장했고,오른쪽살아있을때(오른쪽배열남은값이더클때) 
+	while(j<=right)
+	{
+		b[k][0]=a[j][0];
+		b[k][1]=a[j][1];
+		k++;
+		j++;
+	}
+	
+	k--; //빈배열가르키는것방지 
+	while(k>=0) //b에 저장했던값을 다시a에저장해주기 
+	{
+		a[left+k][0] = b[k][0];
+		a[left+k][1] = b[k][1];
+		k--;
+	}
+}
+void mergesort(int left,int right)
+{
+	if(left<right)
+	{
+		int mid=(left+right)/2;
+		mergesort(left,mid);
+		mergesort(mid+1,right);
+		
+		merge(left,mid,right);
+	}
+}
+int main(void)
+{
+	int N,temp,i,j;
+	bool T;
+	scanf("%d",&N); //입력받을갯수 
+	for(i=0;i<N;i++) //(반복입력받을갯수만큼) 
+	{
+		scanf("%d",&temp); //배열에넣어줄수 
+		T=true; 	//참거짓판별
+		
+		for(j=0;j<i&&T==true;j++)
+		{
+			if(a[j][0]==temp)
+			{
+				a[j][1]=a[j][1]+1; 
+				T=false;
+			}
+		}
+		if(T)
+		{
+			a[arraylength][0]=temp;	
+			arraylength++;
+		}	
+		
+	}
+	mergesort(0,arraylength-1);
+	
+	for(i=0;i<arraylength;i++)
+	{
+		for(j=0;j<=a[i][1];j++)
+		{			
+			printf("%d\n",a[i][0]);
+		}
+	}
+}
