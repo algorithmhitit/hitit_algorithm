@@ -12,29 +12,45 @@ private:
 	int a[1000];
 	int size;
 public:
-	void insertionSort(int[]);
+	Sort();
+	~Sort();
+	void insertionSort();
 	void getSize(int);
 	int returnSize();
 	void getArray(int, int);
 	void printfArray();
 };
 
+Sort::Sort() {
+	this->size = 0;
+}
+
+Sort::~Sort() {}
+
+void Sort::insertionSort() {
+	int temp;
+	for (int i = 0; i < size; i++) {
+		temp = a[i];
+		for (int j = 0 ; j < i ; j++) {
+			if(a[i]<a[j]){
+				a[i] = a[j];
+				a[j] = temp;
+				temp = a[i];
+			}
+		}
+	}
+}
+
 void Sort::getSize(int a) {
 	size = a;
 }
 
-void Sort::insertionSort(int a[]) {
-	for (int i = 0; i < size; i++) {
-
-	}
+int Sort::returnSize() {
+	return size;
 }
 
 void Sort::getArray(int val, int i) {
 	a[i] = val;
-}
-
-int Sort::returnSize() {
-	return size;
 }
 
 void Sort::printfArray() {
@@ -53,9 +69,9 @@ int main() {
 		sort.getArray(val, i);
 	}
 
-	sort.printfArray();
+	sort.insertionSort();
 
-	//Sort::insertinoSort(a);
+	sort.printfArray();
 
 	return 0;
 }
