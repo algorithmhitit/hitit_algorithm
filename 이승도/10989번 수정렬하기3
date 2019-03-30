@@ -1,0 +1,26 @@
+//수정렬하기3
+//10989번
+//문제에 오름차순으로정렬하라고써져있지만 정렬이필요없었던문제..?
+//받아야하는수를 그대로배열의 해당하는칸에계속해서 ++해준다..
+#include <iostream>
+#include <stdio.h>
+
+int main()
+{
+	int N,temp,count;
+	int a[10001]={0};
+	scanf("%d",&N);
+	for(int i=1;i<=N;i++)
+	{
+		scanf("%d",&temp);
+		a[temp]++;
+	}
+	for(int j=1;j<=10000;j++)
+	{
+		for(int k=0;k<a[j];k++)
+		{
+			if(a[j]!=0)
+				printf("%d\n",j);
+		}
+	}
+}

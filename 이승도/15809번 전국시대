@@ -1,0 +1,120 @@
+//전국 시대
+//15809번
+//2차원배열을활용,[0]에 병력수를넣음 [0]값이 ==0이면 사라진국가
+//[1]값에는 동맹국을 가르킴 (포인터는 어려워서안썼음)
+//항상 p,q를받을때 작은값이 p가오도록 swap(p,q)를 하여서받았음
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int nation[100002][2]={0};
+int result[100002]={0};
+void swap(int &a, int&b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void setarmy(int N)
+{
+	int army,i;
+	for(i=1;i<=N;i++)
+	{
+		cin>>army;
+		nation[i][0]=army;
+	}
+}
+int find_real(int N,int x)
+{
+	if(nation[x][0]!=0)
+		return x;
+	else
+	{
+		int temp;
+		temp=nation[x][1];
+		find_real(N,temp);
+	}
+}
+void warsimul(int N,int M)
+{
+	int option,p,q;
+	for(int i=1;i<=M;i++)
+	{
+		cin>>option>>p>>q;
+		if(option==1) //동맹맺기 
+		{
+			p = find_real(N,p);
+			q = find_real(N,q);
+			if(p>q) swap(p,q);
+			
+			nation[p][0]+=nation[q][0];
+			nation[q][0]=0;
+			nation[q][1]=p;
+		}
+		if(option==2) //전쟁! 
+		{			
+			p = find_real(N,p);
+			q = find_real(N,q);
+			if(nation[q][0]>nation[p][0])
+				swap(p,q);
+				
+			nation[p][0]-=nation[q][0]; //p의 군사력이더클때 
+			nation[q][0]=0;
+			nation[q][1]=p;
+		
+		}
+	}
+}
+int partition(int a[],int start, int end)
+{
+	int pivotIndex = (start + end) / 2;
+    int pivotValue = a[pivotIndex];
+    swap(a[pivotIndex], a[end]);
+    int storeIndex = start;
+    for (int i = start; i<end; i++) {
+        if (a[i]<pivotValue) {
+            swap(a[i], a[storeIndex]);
+            storeIndex++;
+        }
+    }
+    swap(a[storeIndex], a[end]);
+    return storeIndex;
+}
+void quicksort(int a[],int start, int end)
+{
+	if(start<end)
+	{
+		int pivot = partition(a,start,end);
+		quicksort(a,start,pivot-1);
+		quicksort(a,pivot+1,end);
+	}
+}
+int main()
+{
+	int N,M,temp,i,option,count=0;
+	cin>>N>>M;
+	//[0] 		= ARMY(병력수)  == 0이되면 사라진국가 
+	//[1] 		= 동맹관계  -> 앞에있는나라에더하고 가리키자 
+	//고려해야할점 p와 q가바뀔때 swap할지 그냥할지 
+	
+	setarmy(N); 		//army값넣어주기 
+	warsimul(N,M);	    //war시뮬레이터 
+	
+	for(i=1;i<=N;i++)
+	{
+		if(nation[i][0]!=0)
+		{
+			count++;
+			result[count]=nation[i][0];
+		}
+	}
+	quicksort(result,1,count);
+	
+	cout<<count<<endl;
+	for(i=1;i<=count;i++)
+	{
+		cout<<result[i]<<" ";
+	}
+	
+}

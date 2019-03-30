@@ -1,0 +1,70 @@
+//버블 소트
+//1517번
+// 50만개가주어지는데 버블소트로풀면 시간제한에걸림
+// 따라서 머지소트로풀되,바꿔주는 INDEX만큼 COUNT를더함
+// 최대 50만의 제곱만큼바꿔주게되면 2500억으로 int값초과되니 COUNT를 long값으로선언
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+int b[500001]={0};
+long swapcount=0.00;
+
+void merge(int a[],int left,int mid,int right)
+{	
+	int i=left;
+	int j=mid+1;
+	int k=0; 	//b[]에 저장할INDEX  
+	while(i<=mid && j<=right)
+	{
+		if(a[i]<a[j]) //오른쪽분할정렬값이 더클때 
+		{
+			b[k++]=a[i++]; //b라는 배열에 작은왼쪽값을
+							// 순차적으로 값을저장 
+			//b[k]=a[i]; k++; i++;
+		}
+		else
+		{
+			b[k++] =a[j++]; //왼쪽클때 작은오른쪽값저장 
+			swapcount += mid - i + 1; //왼쪽배열남은만큼더해주기 
+		}
+	}
+	//오른쪽다저장했고 ,왼쪽살아있을때(왼쪽배열남은값이더클때) 
+	while(i<=mid)   b[k++]=a[i++];
+	//왼쪽다저장했고,오른쪽살아있을때(오른쪽배열남은값이더클때) 
+	while(j<=right) b[k++]=a[j++];
+	
+	k--; //빈배열가르키는것방지 
+	while(k>=0) //b에 저장했던값을 다시a에저장해주기 
+	{
+		a[left+k] = b[k];
+		k--;
+	}
+}
+void mergesort(int arr[],int left,int right)
+{
+	if(left<right)
+	{
+		int mid=(left+right)/2;
+		mergesort(arr,left,mid);
+		mergesort(arr,mid+1,right);
+		
+		merge(arr,left,mid,right);
+	}
+}
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	int a[N]={0};
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	
+	mergesort(a,0,N-1);
+	
+	cout<<swapcount;
+	//printf("%d",swapcount);
+}

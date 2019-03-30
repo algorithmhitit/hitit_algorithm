@@ -1,0 +1,40 @@
+//나무 조각
+//2947번
+//버블소트로풀며, swap때마다 출력하면끝
+#include <iostream>
+#include <stdio.h>
+void swap(int &a,int &b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void print(int a[],int length)
+{
+	for(int i=0;i<length;i++)
+		printf("%d ",a[i]);
+	printf("\n");
+}
+int main()
+{
+	int temp;
+	int tree[5]={0};
+	
+	for(int i=0;i<5;i++)
+	{
+		scanf("%d",&tree[i]);
+	}	//입력부분 
+	
+	for(int i=0;i<5;i++)
+	{
+		for(int j=0;j<5-i-1;j++)
+		{
+			if(tree[j]>tree[j+1])
+			{
+				swap(tree[j],tree[j+1]);
+				print(tree,5);
+			}
+		}
+	}
+	
+}
