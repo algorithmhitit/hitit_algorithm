@@ -1,0 +1,50 @@
+//부분합
+//1806번
+//( 2N )번 비교, 결과값보다크면 왼쪽값하나빼보고 작으면 오른쪽값하나더하는식으로 최소길이구하기
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+ 
+int a[100000]={0};
+
+int main()
+{
+	int N,S,sum=0;
+	int count=0;
+	int min_count=100001;
+	scanf("%d %d",&N,&S);
+	
+	int left=0;
+	int right=left;
+	
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&a[i]);
+	} //입력부분 
+	
+	
+	for(int i=0;i<2*N;i++)
+	{
+		if(sum<S)
+		{
+			if(right>N) break;
+			sum+=a[right];
+			right++;
+			count++;
+		}
+		else
+		{
+			if(min_count>count) min_count=count;
+			sum -= a[left];
+			left++;
+			count--;
+		}
+			
+	}
+	
+	if(min_count!=100001)
+		printf("%d",min_count);
+	else
+		printf("0");
+}
