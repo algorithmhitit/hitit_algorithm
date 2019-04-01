@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-long f(long a,long b) {
-	long result;
+long long f(long long a,long long b) {
+	long long result;
 	if(b == 1){
 		return a;
 	}
@@ -24,15 +24,15 @@ long f(long a,long b) {
 }
 
 int main() {
-	long result;
-	long a=0, b=0;
+	long long result;
+	long long a=0, b=0;
 
 	printf("a에 b승값을 입력하시요 : ");
-	scanf("%ld %ld", &a, &b);
+	scanf("%lld %lld", &a, &b);
 
 	result = f(a,b);
 
-	printf("%ld", result);
+	printf("%lld %lld", result, result%1000000007);
 
 	return 0;
 }
