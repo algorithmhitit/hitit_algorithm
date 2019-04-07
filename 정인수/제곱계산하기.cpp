@@ -13,12 +13,12 @@ long long f(long long a,long long b) {
 	else if (0 == (int)b % 2) {
 		//차수가 짝수일 때
 		b = b / 2;
-		result = pow((double)f(a,b), (double)2);
+		result = pow(f(a,b),2);
 	}
 	else if (1 == (int)b % 2) {
 		//차수가 홀수일 때
 		b = (b - 1) / 2;
-		result = a*pow((double)f(a, b), (double)2);
+		result = a*pow(f(a, b), 2);
 	}
 	return result;
 }
