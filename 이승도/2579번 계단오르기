@@ -1,0 +1,38 @@
+//계단오르기
+//2579번
+//N번째의 계단을 반드시밟아야하는 조건에서시작
+//처음부터 하나하나구해보고 규칙찾아서넣기 
+#include <iostream>
+#include <stdio.h>
+int find_max(int a,int b)
+{
+	if(a>b) return a;
+	return b;
+}
+int main()
+{
+	int N;
+	int arr[301];
+	int max[301]={0};
+	
+	scanf("%d",&N);
+	
+	for(int i=0;i<N;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	
+	max[0] = arr[0];
+	max[1] = arr[1] + arr[0];
+	
+	max[2] = find_max(arr[0]+arr[2] , arr[1]+arr[2]);
+	
+	//max[3] = find_max(arr[3]+max[1] , arr[3]+arr[2]+max[0]);
+	//max[4] = find_max(arr[4]+max[2] , arr[4]+arr[3]+max[1]);
+	//max[5] = find_max(arr[5]+max[3] , arr[5]+arr[4]+max[2]);
+	for(int i=3;i<N;i++)
+	{
+		max[i] = find_max(arr[i]+max[i-2] , arr[i]+arr[i-1]+max[i-3]);
+	}
+	printf("%d",max[N-1]);
+}
