@@ -6,7 +6,12 @@ https://rogerdudler.github.io/git-guide/index.ko.html
 https://opentutorials.org/course/1492  
 
 !이번주 목표!  
-A. https://www.acmicpc.net/problem/2579  
+A.평범한배낭 https://www.acmicpc.net/problem/12865  
+B.평범한배낭2 https://www.acmicpc.net/problem/12920  
+C.배수공사 https://www.acmicpc.net/problem/15817  
+D.정수삼각형 https://www.acmicpc.net/problem/1932  
+
+A.계단오르기 https://www.acmicpc.net/problem/2579  
 
 
 저번주에 못푼문제들 포함해서 풀어보기 ex) 링크드 리스트, 버블소트  
