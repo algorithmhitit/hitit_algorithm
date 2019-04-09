@@ -1,0 +1,76 @@
+//내려가기
+//2096번
+// max,min값을 세방향에서적용해주면서구하였음
+// ex) left_max 는 왼쪽,가운데비교후 큰값과 left를더해주면서내려가기
+// ex) middle_max는 전에구했던 max값들을 전부(왼쪽,가운데,오른쪽)비교후 middle과 더해주면서내려가기
+#include <iostream>
+#include <stdio.h>
+int max_find(int a,int b)
+{
+	if(a>b) return a;
+	return b;
+}
+int max_find(int a,int b,int c)
+{
+	int temp = max_find(a,b);
+	return max_find(temp,c);
+}
+int min_find(int a,int b)
+{
+	if(a<b) return a;
+	return b;
+}
+int min_find(int a,int b,int c)
+{
+	int temp = min_find(a,b);
+	return min_find(temp,c);
+}
+int main(void)
+{
+	int N,left,middle,right,sol_max,sol_min;
+	int left_max=0;
+	int left_min=0;
+	int middle_max=0;
+	int middle_min=0;
+	int right_max=0;
+	int right_min=0;
+	int left_maxtemp,left_mintemp;
+	int middle_maxtemp,middle_mintemp;
+	int right_maxtemp,right_mintemp;
+	
+	scanf("%d",&N);
+	for(int i=0;i<N;i++)  //N번반복 
+	{
+		scanf("%d %d %d",&left,&middle,&right);
+		if(i==0) //첫회반복시 max,min 초기화 
+		{
+			left_max=left; 
+			left_min=left;
+			middle_max=middle;
+			middle_min=middle;
+			right_max=right;
+			right_min=right;
+			continue;
+		}
+		left_maxtemp=left_max;
+		middle_maxtemp=middle_max;
+		right_maxtemp=right_max;
+		
+		left_mintemp=left_min;
+		middle_mintemp=middle_min;
+		right_mintemp=right_min;
+		
+		left_max   =  left  + max_find(left_maxtemp,middle_maxtemp);
+		middle_max = middle + max_find(left_maxtemp,middle_maxtemp,right_maxtemp);
+		right_max  =  right + max_find(middle_maxtemp,right_maxtemp);
+		
+		left_min   = left   + min_find(left_mintemp,middle_mintemp);
+		middle_min = middle + min_find(left_mintemp,middle_mintemp,right_mintemp);
+		right_min  = right  + min_find(middle_mintemp,right_mintemp);	
+	}
+	
+	sol_max=max_find(left_max,middle_max,right_max);
+	sol_min=min_find(left_min,middle_min,right_min);
+	
+	printf("%d %d\n",sol_max,sol_min);
+}
