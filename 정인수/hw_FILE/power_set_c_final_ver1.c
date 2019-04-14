@@ -53,7 +53,6 @@ PILL pow_n(PIL l)
    else 
    {
        ps = pow_n(IL_tail(l));
-       ILL_print(ps);
        return ILL_conc(ps, pre(IL_head(l),ps));   
    }
 }
