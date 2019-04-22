@@ -55,12 +55,13 @@ int main(int argc, char *argv[])
 		for(i=1;i<=n;i++) {
 			c = a[i][k]/a[k][k];
 			for(j=k;j<=n;j++){
-				if((1 != k) && (j==k)) a[i][j] = 0.0;
+				if((i != k) && (j==k)) a[i][j] = 0.0;
 				else if((i != k) && (j>k)) a[i][j] -= c*a[k][j];
 			}
 			if(i != k) b[i] -= c*b[k];
 		}
 		printf("\n");
+		print_equation(a,b,n);
 		for(i=1;i<=n;i++){
 			printf("x%d = %-8.3f",i,(float)b[i]/a[i][i]);
 			if(i==n) printf("\n");
