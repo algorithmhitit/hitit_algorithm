@@ -1,23 +1,29 @@
 //binarySearchTree
 //template로 구현하기
-#include <stdio.h>
+//컴파일 방식
+//g++ -o test binarySearchTree.cpp cNode.h cBinarySearchTree.h
+//이러면 test.exe가 해당 폴더에 생성된다.
+
 #include "cBinarySearchTree.h"
-
-template <typename T>
-void cBinarySearchTree<t>::treeInsert(T x){
-    root = treeInsert(root, x);
-}
-
-template <typename T>
-void cBinarySearchTree<T>::treeDelete(T x){
-    cNode<T>* r = root;
-    cNode<T>* p = 0;
+#include <iostream>
+using namespace std;
  
-    // r의 부모를 찾아 p에 저장
- 
-    if(r)       treeDelete(root, r, p);
-}
-
-int main() {
-    
+int main(){
+    char cmd;
+    int n, x;
+    cBinarySearchTree<int> tree;
+    cin>>n;
+    for(int i = 0; i<n; i++){
+        cin>>cmd>>x;
+        switch(cmd){
+        case 'I':
+            tree.treeInsert(x);
+            break;
+        case 'D':
+            tree.treeDelete(x);
+            break;
+        }
+    }
+    tree.treePrint();
+    return 0;
 }

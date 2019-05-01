@@ -14,7 +14,8 @@ struct tree {
 };
 
 tree* treeInsert(tree* r, int x);
-void treeDelete(tree* r,int x);
+tree* treeDelete(tree* r,int x);
+tree* minValueNode(tree* r);
 void treePrint(tree* r, int order);
 
 int main(){
@@ -36,17 +37,11 @@ int main(){
         a[i][1] = tmp;
     }
 
-    printf("treeDelete 하기 전\n");
-
     for(int i=0;i<deleteNodeNum;i++){
-        printf("for문 시작 i:%d",i);
         treeDelete(r, a[i][1]);
-        printf("tree Delete 완료 i:%d", i);
         treePrint(r, a[i][0]);
-        printf("treePrint 완료 i: %d",i);
+        printf("\n");
     }
-
-    printf("treeDelete 한 후\n");
 
     return 0;
 }
@@ -70,68 +65,49 @@ tree* treeInsert(tree* r, int x){
     }
 }
 
-void treeDelete(tree* r,int x){
-    printf("treeDelete 시작 x : %d\n",x);
+tree* treeDelete(tree* r,int x){
     if(r == NULL){
-        return;
+        return r;
     }
     if(r->data > x){
-        printf("left! r->data : %d, x : %d\n",r->data,x);
-        treeDelete(r->left, x);
+        r->left = treeDelete(r->left, x);
     }
     else if(r->data < x){
-        printf("right! r->data : %d, x : %d\n",r->data,x);
-        treeDelete(r->right,x);
+        r->right = treeDelete(r->right,x);
     }
     else if(r->data == x){
-        printf("r->data = x! r->data : %d, x : %d\n",r->data,x);
-        tree* tmp=NULL,*prev=NULL;
-        if(r->right == NULL && r->left == NULL){
-            free(r);
-            return;
-        }
         if(r->left == NULL){
-            tmp = r->right;
-            while(tmp->left != NULL){
-                printf("while!!!!\n");
-                prev = tmp;
-                tmp = tmp->left;
-            }
-            if(tmp->right != NULL){
-                prev->left = tmp->right;
-            }
-            printf("after while\n");
-            free(tmp);
+            tree *temp = r->right;
+            free(r);
+            return temp;
         }
         else if(r->right == NULL){
-            tmp=r->left;
-            while(tmp->right != NULL){
-                printf("while!!!!\n");
-                prev = tmp;
-                tmp = tmp->right;
-            }
-            if(tmp->right != NULL){
-                prev->left = tmp->right;
-            }
-            printf("after while\n");
-            free(tmp);
+            tree *temp = r->left;
+            free(r);
+            return temp;
         }
-
+        tree* temp = minValueNode(r->right);
+        r->data = temp->data;
+        r->right = treeDelete(r->right,temp->data);
     }
-    return;
+    return r;
+}
+
+tree* minValueNode(tree* r){
+    tree* current = r;
+    while(current->left !=NULL)
+        current = current->left;
+    return current;
 }
 
 void treePrint(tree* r, int order){
-    printf("%d",r->data);
+    if(order == 0)printf("%d ",r->data);
     if(r->left != NULL){
         treePrint(r->left,order);
     }
-    //printf("%d",r->data);
-    else if(r->right != NULL){
+    if(order == 1)printf("%d ",r->data);
+    if(r->right != NULL){
         treePrint(r->right,order);
     }
-    //printf("%d",r->data);
-    else {
-        return;
-    }
+    if(order == 2)printf("%d ",r->data);
 }
