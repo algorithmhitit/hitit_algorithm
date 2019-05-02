@@ -28,6 +28,7 @@ int main() {
     for(int i=0;i<4;i++){
         if(findNum == startTime[i]){
             count++;
+            break;
         }
     }
     while(a[0]!=a[2]||a[1]!=a[3]){
