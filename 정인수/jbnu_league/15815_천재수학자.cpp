@@ -29,6 +29,9 @@ int main(){
     char *str = a;
     scanf("%s",str);
     for(int i=0;i<200;i++){
+        if(a[i] == NULL){
+            break;
+        }
         if(a[i]>=48 &&a[i]<=57){
             b[bcount] = a[i]-48;
             //printf("b[%d] = %d\n",bcount,b[bcount]);
@@ -36,6 +39,7 @@ int main(){
         }
         else{
             c[ccount] = a[i];
+            //printf("c[%d] = %c\n",ccount,c[ccount]);
             ccount++;
         }
     }
