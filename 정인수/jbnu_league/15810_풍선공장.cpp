@@ -2,52 +2,40 @@
 //15810번
 //https://www.acmicpc.net/problem/15810
 #include <stdio.h>
-#include <algorithm>
 
-int a[1000000];
-
-bool cmp(int a, int b) {
-	return a<b;
-}
+int staffNum=0,ballonNum;
+int ans=0;
+int bs[1000000];//풍선 부는 속도 ballon speed 
 
 int main() {
-    int staff=0,ballon=0;
-    int ans=0;
-    scanf("%d %d",&staff,&ballon);
-    for(int i=0;i<staff;i++){
-       scanf("%d",&a[i]); 
-    }
-
-    std::stable_sort(a,a+staff,cmp);
-
-    int btime=0;
-
-    while(true){
-        ans = 0;
-        btime = btime + a[staff-1];
-        for(int j=0;j<staff;j++){
-            ans =  ans + btime/a[j];
-        }
-        if(ans > ballon){
-            for(int i=btime-a[staff-1];i<=btime;i++){
-                ans = 0;
-                for(int j=0;j<staff;j++){
-                    ans = ans + i/a[j];
-                }
-                if(ans >= ballon){
-                    ans = i;
-                    printf("%d",ans);
-                    return 0;
-                }
-            }
-        }
-        else if(ans == ballon){
-            ans = btime;
-            printf("%d",ans);
-            return 0;
-        }
-    }
-
-    printf("%d",ans);
-    return 0;
+	scanf("%d %d",&staffNum,&ballonNum);
+	for(int i=0;i<staffNum;i++){
+		scanf("%d", &bs[i]);
+	}
+	
+	int left =0;
+	int right = 1000000000;
+	int mid=0;
+	int res =0;
+	
+	while(left < right){
+		ans = 0;
+		mid = (left + right)/2;
+		for(int i=0;i<staffNum;i++){
+			ans = ans + mid/bs[i];
+		}
+		if(ans >= ballonNum){
+			right = mid;
+		}
+		else {
+			left = mid+1;
+		}
+	}
+	
+	//ans = find(0,1000000);
+	//printf("%d",ans);
+	
+	printf("%d",right);
+	
+	return 0; 
 }
