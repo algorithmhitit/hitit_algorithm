@@ -1,11 +1,11 @@
-//í’ì„ ê³µì¥
-//15810ë²ˆ
+//Ç³¼±°øÀå
+//15810¹ø
 //https://www.acmicpc.net/problem/15810
 #include <stdio.h>
 
 int staffNum=0,ballonNum;
 int ans=0;
-int bs[1000000];//í’ì„  ë¶€ëŠ” ì†ë„ ballon speed 
+int bs[1000000];//Ç³¼± ºÎ´Â ¼Óµµ ballon speed 
 
 int main() {
 	scanf("%d %d",&staffNum,&ballonNum);
@@ -13,18 +13,18 @@ int main() {
 		scanf("%d", &bs[i]);
 	}
 	
-	int left =0;
-	int right = 1000000000;
-	int mid=0;
-	int res =0;
+	long long left =0;
+	long long right = 1000000000000;
+	long long mid=0;
+	long long cBalloonNum=0;
 	
 	while(left < right){
-		ans = 0;
+		cBalloonNum = 0;
 		mid = (left + right)/2;
 		for(int i=0;i<staffNum;i++){
-			ans = ans + mid/bs[i];
+			cBalloonNum += mid/bs[i];
 		}
-		if(ans >= ballonNum){
+		if(cBalloonNum >= ballonNum){
 			right = mid;
 		}
 		else {
@@ -32,10 +32,7 @@ int main() {
 		}
 	}
 	
-	//ans = find(0,1000000);
-	//printf("%d",ans);
-	
-	printf("%d",right);
+	printf("%lld",left);
 	
 	return 0; 
 }
