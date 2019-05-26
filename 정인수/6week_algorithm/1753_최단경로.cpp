@@ -12,7 +12,7 @@ using namespace std;
 vector< pair<int,int> > adj[20001];
 
 vector<int> dijkstra(int src, int V, int E) {
-    vector<int> dist(V, INT_MAX);
+    vector<int> dist(V, INT_MAX);//dist를 v개 생성하고 INT_MAX로 전부 초기화한다.
     dist[src] = 0;
 
     //queue
