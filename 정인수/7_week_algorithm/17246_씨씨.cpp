@@ -1,4 +1,4 @@
-#include <vector>
+/*#include <vector>
 #include <stdio.h>
 #include <algorithm>
 #include <queue>
@@ -51,15 +51,14 @@ int main() {
     }
 
     return 0;
-}
+}*/
 
-/*
 #include <stdio.h>
 #define INF 1000000
 
 int main (){
     int nodeNum,adjNum;
-    int dist[101][101] = {0,};
+    int dist[201][201] = {0,};
     scanf("%d",&nodeNum);
     scanf("%d",&adjNum);
     int from, to, val;
@@ -97,4 +96,4 @@ int main (){
     }
 
     return 0;
-}*/
+}
