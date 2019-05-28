@@ -1,41 +1,55 @@
 #include <iostream>
-#include <cstdio>
- 
-#define INF 987654321
-#define min(a,b)(a < b ? a : b)
+#include <algorithm>
+#define MAX_SIZE 20
 using namespace std;
  
-int adj[101][101];
-int dist[101][101];
+char candidate[MAX_SIZE];
+char ret[MAX_SIZE];
+int visit[MAX_SIZE];
+int moeum,jaeum;
  
-int main()
+void dfs(int start,int L , int C,int d)
 {
-    int V, E;
-    scanf("%d %d", &V, &E);
- 
-    for (int i = 1; i <= V; i++)
-        for (int j = 1; j <= V; j++)
-            i == j ? adj[i][j] = 0 : adj[i][j] = INF;
- 
-    for (int i = 0; i < E; i++)
+    
+    if(d == L) // 깊이가 정해진 갯수에 도달했을때
     {
-        int from, to, val;
-        scanf("%d %d %d", &from, &to, &val);
-        adj[from][to] = min(adj[from][to], val);
+        if(moeum == 0 || jaeum < 2)return; //모음이 1개도 없거나 , 자음이 2개가 안될경우 출력 불가능하게 리턴
+        
+        for(int i = 0 ; i < L ; i++)
+        {
+            cout << ret[i];
+        }
+        cout <<'\n';
+        return;
     }
- 
-    for (int k = 1; k <= V; k++)
-        for (int x = 1; x <= V; x++)
-            for(int y = 1; y <= V; y++)
-                if (adj[x][y] > adj[x][k] + adj[k][y])
-                    adj[x][y] = adj[x][k] + adj[k][y];
- 
-    for (int i = 1; i <= V; i++)
+    
+    for(int i = start; i < C ; i++) //시작지점부터 후보군의 갯수만큼 탐색
     {
-        for (int j = 1; j <= V; j++)
-            printf("%d ", adj[i][j] == INF ? 0 : adj[i][j]);
-        printf("\n");
+        if(visit[i]) continue; //방문했을경우 컨티뉴
+        
+        ret[d] = candidate[i]; // 결과가 될 현재 깊이 위치에 후보군의 문자를 입력.
+        if(ret[d]== 'a' || ret[d]== 'e' ||ret[d]== 'i' ||ret[d]== 'o' ||ret[d]== 'u') moeum ++; //모음과 자음의 갯수를 카운팅
+        else jaeum ++;
+        
+        visit[i] = 1;
+        dfs(i+1,L,C,d+1);
+        visit[i] = 0;
+        if(ret[d]== 'a' || ret[d]== 'e' ||ret[d]== 'i' ||ret[d]== 'o' ||ret[d]== 'u') moeum --; // 다시 빼주기
+        else jaeum --;
+        
     }
- 
+}
+int main() {
+    int L,C;
+    cin >> L >> C;
+    
+    for(int i = 0 ; i < C ; i++)
+    {
+        cin >> candidate[i];
+    }
+    
+    sort(candidate, candidate+C); // 정렬 , 오름차순으로 출력해주기 위함.
+    
+    dfs(0,L,C,0); // 재귀 진입
     return 0;
 }
