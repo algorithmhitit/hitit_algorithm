@@ -7,9 +7,9 @@ int pi[1000];
 
 void preprocessing(char P[], int m) {
     for(int i=0;i<=m;i++){
-        pi[i] = 0;
+        pi[i] = 1;
     }
-    int j=1;
+    /*int j=1;
     for(int i=2;i<=m;i++){
         while(j>1 && P[i] != P[j]){
             j = pi[j-1];//불일치가 일어날 경우
@@ -17,7 +17,16 @@ void preprocessing(char P[], int m) {
         if(P[i] == P[j]){
             pi[i] = j++;//prefix가 같은 가중치 만큼 pi를 정해준다.    
         }
-    }
+    }*/
+    int j=1;
+    for(int i=2;i<=m;i++){
+        while(j>1 && P[i] != P[j]){
+            j = pi[j-1];//불일치가 일어날 경우
+        }
+        if(P[i] == P[j]){
+            pi[i] = ++j;//prefix가 같은 가중치 만큼 pi를 정해준다.    
+        }
+    }    
 }
 
 void KMP(char A[], char P[],int n,int m){
@@ -28,26 +37,32 @@ void KMP(char A[], char P[],int n,int m){
     while(i<=n){
         count++;
         //문자열이 같을때
-        if(j==0||A[i] == P[j]){
+        if(A[i] == P[j]){
             cout << "i = " << i << ", j = "<< j<< endl;
             i++;
             j++;
+            if(j==m+1){
+                //cout << i-j << endl;
+                cout << count << endl;
+                j = pi[j-1];
+            }
+        }
+        else if(j==1){
+            cout<< "else if j==1" << endl;
+            i++;
+            //j++;
         }
         /*else if(j==0){
             i++;
         }*/
         //문자열이 같지 않을때
         else{
+            //count--;
             cout << "else" <<endl;
-            j = pi[j];
+            j = pi[j-1];
         }
 
-        if(j==m){
-            cout << i-j << endl;
-            cout << count << endl;
-            j = pi[j];
-        }
-
+        
     }
 }
 
@@ -72,7 +87,7 @@ int main () {
         scanf("%c",&P[m]);
     }
     m=m-1;
-    for(int i=1;i<=n;i++){
+    /*for(int i=1;i<=n;i++){
         printf("%c",A[i]);
     }
     printf("\n");
@@ -80,9 +95,9 @@ int main () {
         printf("%c",P[i]);
     }
     printf("\n");
-
+*/
     //printf("%s\n%s",A,P);
-    printf("n = %d, m = %d",n,m);
+    //printf("n = %d, m = %d\n",n,m);
     KMP(A,P,n,m);
     //preprocessing(P,m);
     for(int i=0;i<=m;i++){
