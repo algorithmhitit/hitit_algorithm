@@ -17,9 +17,9 @@ int main () {
     
     mergeSort(a,0,n-1);
 
-    /*for(int i=0;i<n;i++){
+    for(int i=0;i<n;i++){
         printf("%d ", a[i]);
-    } */ 
+    } 
     printf("%d", count);
 
     return 0;
@@ -41,7 +41,7 @@ void merge(int a[], int p, int q, int r){
     int i=p;//i는 mergeSort에서 나눈 정렬된 배열의 앞부분의 위치를 알려주는 index이다.
     int j=q+1;//j는 mergeSort에서 나눈 정렬된 배열의 뒷부분의 현재 위치를 알려주는 index이다.
     int t=0;//temp의 index를 가르킨다.
-    count++;//9
+    //count++;//9
     while(i<=q && j<=r){//i와 j가 자신의 배열의 뒷부분을 넘어가지 않는선에서 while문을 돌려줌
         //count++;//23
         if(a[i] < a[j]){
@@ -50,10 +50,10 @@ void merge(int a[], int p, int q, int r){
         }
         else if(a[i] == a[j]){
             count++;//5
-            temp[t++] = a[i++];//temp의 index와 a의 index를 대입이 완료된후 +1해준다.
+            temp[t++] = a[j++];//temp의 index와 a의 index를 대입이 완료된후 +1해준다.
         }
         else if(a[i] > a[j]) {
-            //count++;//11
+            count++;//11
             temp[t++] = a[j++];
         }
         else {

@@ -6,7 +6,11 @@
         "queue": "cpp",
         "utility": "cpp",
         "xiosbase": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "ostream": "cpp",
+        "algorithm": "cpp",
+        "string": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
